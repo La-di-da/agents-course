@@ -6,16 +6,20 @@ from email_agent import email_agent
 import asyncio
 
 class ResearchManager:
+    def __init__(self, recipient_email: str = None):
+        self.recipient_email = recipient_email
 
-    async def run(self, query: str):
+    async def run(self, query: str, recipient_email: str = None):
         """ Run the deep research process, yielding the status updates and the final report"""
+        if recipient_email:
+            self.recipient_email = recipient_email
         trace_id = gen_trace_id()
         with trace("Research trace", trace_id=trace_id):
             print(f"View trace: https://platform.openai.com/traces/trace?trace_id={trace_id}")
             yield f"View trace: https://platform.openai.com/traces/trace?trace_id={trace_id}"
             print("Starting research...")
             search_plan = await self.plan_searches(query)
-            yield "Searches planned, starting to search..."     
+            yield f"Searches for {query} planned, starting to search..."     
             search_results = await self.perform_searches(search_plan)
             yield "Searches complete, writing report..."
             report = await self.write_report(query, search_results)
@@ -74,11 +78,11 @@ class ResearchManager:
         print("Finished writing report")
         return result.final_output_as(ReportData)
     
-    async def send_email(self, report: ReportData) -> None:
+    async def send_email(self, report: ReportData):
         print("Writing email...")
         result = await Runner.run(
             email_agent,
-            report.markdown_report,
+            f"{report.markdown_report}\nRecipient: {self.recipient_email}",
         )
-        print("Email sent")
+        print(f"Email sent to {self.recipient_email}")
         return report
