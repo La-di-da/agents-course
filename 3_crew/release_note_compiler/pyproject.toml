@@ -1,0 +1,23 @@
+[project]
+name = "release_note_compiler"
+version = "0.1.0"
+description = "release_note_compiler using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]>=0.148.0,<1.0.0"
+]
+
+[project.scripts]
+release_note_compiler = "release_note_compiler.main:run"
+run_crew = "release_note_compiler.main:run"
+train = "release_note_compiler.main:train"
+replay = "release_note_compiler.main:replay"
+test = "release_note_compiler.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"

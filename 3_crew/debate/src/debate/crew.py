@@ -26,21 +26,15 @@ class Debate():
 
     @task
     def propose(self) -> Task:
-        return Task(
-            config=self.tasks_config['propose'],
-        )
+        return Task(config=self.tasks_config['propose'])
 
     @task
     def oppose(self) -> Task:
-        return Task(
-            config=self.tasks_config['oppose'],
-        )
+        return Task(config=self.tasks_config['oppose'])
 
     @task
     def decide(self) -> Task:
-        return Task(
-            config=self.tasks_config['decide'],
-        )
+        return Task(config=self.tasks_config['decide'])
 
 
     @crew
