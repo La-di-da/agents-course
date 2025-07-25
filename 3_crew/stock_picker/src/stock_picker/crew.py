@@ -42,6 +42,7 @@ class StockPicker():
         return Agent(config=self.agents_config['trending_company_finder'],
                      tools=[SerperDevTool()], memory=True)
     
+    # Don't want this to have memory cause want it to look things up every time
     @agent
     def financial_researcher(self) -> Agent:
         return Agent(config=self.agents_config['financial_researcher'], 
