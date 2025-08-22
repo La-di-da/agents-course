@@ -30,6 +30,7 @@ def free_resources(sidekick):
 
 with gr.Blocks(title="Sidekick", theme=gr.themes.Default(primary_hue="emerald")) as ui:
     gr.Markdown("## Sidekick Personal Co-Worker")
+    # gr.state ensures separate sessions for multiple windows -- otherwise if 2 people using simultaneously, they share variables.
     sidekick = gr.State(delete_callback=free_resources)
 
     with gr.Row():
