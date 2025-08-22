@@ -65,7 +65,7 @@ async def get_researcher_tool(mcp_servers, model_name) -> Tool:
 
 
 class Trader:
-    def __init__(self, name: str, lastname="Trader", model_name="gpt-4o-mini"):
+    def __init__(self, name: str, lastname="Trader", model_name="gemini-2.5-flash-lite"):
         self.name = name
         self.lastname = lastname
         self.agent = None
@@ -116,6 +116,7 @@ class Trader:
                     for params in researcher_mcp_server_params(self.name)
                 ]
                 await self.run_agent(trader_mcp_servers, researcher_mcp_servers)
+
 
     async def run_with_trace(self):
         trace_name = f"{self.name}-trading" if self.do_trade else f"{self.name}-rebalancing"

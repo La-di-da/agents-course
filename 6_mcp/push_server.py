@@ -1,3 +1,5 @@
+##this could just be a tool, bit silly as an mcp server but great for demoing
+
 import os
 from dotenv import load_dotenv
 import requests

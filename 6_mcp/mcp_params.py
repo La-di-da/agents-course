@@ -1,10 +1,11 @@
+#Specifying mcp parametres for servers
 import os
 from dotenv import load_dotenv
 from market import is_paid_polygon, is_realtime_polygon
 
 load_dotenv(override=True)
 
-brave_env = {"BRAVE_API_KEY": os.getenv("BRAVE_API_KEY")}
+# brave_env = {"BRAVE_API_KEY": os.getenv("BRAVE_API_KEY")}
 polygon_api_key = os.getenv("POLYGON_API_KEY")
 
 # The MCP server for the Trader to read Market Data
@@ -31,6 +32,9 @@ trader_mcp_server_params = [
 
 
 def researcher_mcp_server_params(name: str):
+    return [
+        {"command": "uvx", "args": ["mcp-server-fetch"]}
+        ]
     return [
         {"command": "uvx", "args": ["mcp-server-fetch"]},
         {

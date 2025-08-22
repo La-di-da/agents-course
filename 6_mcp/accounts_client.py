@@ -4,23 +4,26 @@ from mcp import StdioServerParameters
 from agents import FunctionTool
 import json
 
-params = StdioServerParameters(command="uv", args=["run", "accounts_server.py"], env=None)
+params = StdioServerParameters(command="uv", args=["run", "accounts_server.py"], env=None) #parametres to launch mcp server -- can be configurable
 
 
+#contacts server & lists tools
 async def list_accounts_tools():
     async with stdio_client(params) as streams:
         async with mcp.ClientSession(*streams) as session:
             await session.initialize()
             tools_result = await session.list_tools()
             return tools_result.tools
-        
+
+#calling tool        
 async def call_accounts_tool(tool_name, tool_args):
     async with stdio_client(params) as streams:
         async with mcp.ClientSession(*streams) as session:
             await session.initialize()
             result = await session.call_tool(tool_name, tool_args)
             return result
-            
+
+#reading resources            
 async def read_accounts_resource(name):
     async with stdio_client(params) as streams:
         async with mcp.ClientSession(*streams) as session:
@@ -35,6 +38,7 @@ async def read_strategy_resource(name):
             result = await session.read_resource(f"accounts://strategy/{name}")
             return result.contents[0].text
 
+#have to map from mcp description of tool to general json description
 async def get_accounts_tools_openai():
     openai_tools = []
     for tool in await list_accounts_tools():

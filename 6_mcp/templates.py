@@ -1,3 +1,5 @@
+# Nice way to keep prompts separate from modules so things are pretty and neat, less annoying to work with.
+
 from datetime import datetime
 from market import is_paid_polygon, is_realtime_polygon
 

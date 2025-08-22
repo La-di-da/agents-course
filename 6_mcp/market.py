@@ -33,6 +33,7 @@ def get_all_share_prices_polygon_eod() -> dict[str, float]:
     return {result.ticker: result.close for result in results}
 
 
+#cache to get around rate limit on free plan
 @lru_cache(maxsize=2)
 def get_market_for_prior_date(today):
     market_data = read_market(today)
